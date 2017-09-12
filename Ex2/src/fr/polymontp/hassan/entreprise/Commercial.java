@@ -23,4 +23,7 @@ public class Commercial extends Employe {
 		this.ca = ca;
 		this.sommeFixe = sommeFixe;
 	}
+	public double getCA(){
+		return this.ca;
+	}
 }
