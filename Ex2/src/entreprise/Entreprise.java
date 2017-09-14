@@ -50,7 +50,7 @@ public class Entreprise {
 	public void ajouter(Employe e) throws Exception{
 		if(e instanceof Commercial){
 			if( this.nbCommerciauxCurrent >= this.nbCommerciauxMax){
-				throw new Exception("too many commercials");
+				throw new EntrepriseSatureDeCommerciaux(this);
 			}
 			else{
 				int i =0;
@@ -63,6 +63,8 @@ public class Entreprise {
 				}
 			}
 		}
-		
+	}
+	public int getNbMaxCommerciaux(){
+		return this.nbCommerciauxMax;
 	}
 }
