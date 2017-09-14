@@ -40,4 +40,12 @@ public class Paie {
 		Directeur d = Directeur.creerDirecteur("Kevin H", 10000, commerciaux);
 		System.out.println(d.getName()+ " gagne "+d.getSalaire()+ "€");
 	}
+	public ArrayList<Commercial> addCommercial(Commercial c, ArrayList<Commercial> l) throws Exception{
+		if(l.size()==3){
+			throw new Exception("too many commercials");
+		}else{
+			l.add(c);
+			return l;
+		}
+	}
 }
