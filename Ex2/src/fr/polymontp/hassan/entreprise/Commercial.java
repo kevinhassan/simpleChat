@@ -26,4 +26,8 @@ public class Commercial extends Employe {
 	public double getCA(){
 		return this.ca;
 	}
+	
+	public String toString() {
+		return "nom : "+ this.getName()+"|"+"ca : "+ this.getCA()+"|"+"sommeFixe : "+this.sommeFixe+"|"+"salaire : "+ this.getSalaire();
+	}
 }

@@ -1,5 +1,13 @@
 package entreprise;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+
 import fr.polymontp.hassan.entreprise.Commercial;
 import fr.polymontp.hassan.entreprise.Employe;
 import fr.polymontp.hassan.entreprise.EmployeH;
@@ -16,7 +24,38 @@ public class Entreprise {
 		this.nbMax = nbMaxEmployes;
 		this.employes = new Employe[nbMaxEmployes];
 	}
-	
+	public void enregistreToi(Commercial c) {
+		File file = new File("Commercial.txt");
+		try {
+			file.createNewFile();
+			FileWriter writer = new FileWriter(file);
+			writer.write(c.toString());
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	public String[] lire() {
+		FileReader fileReader = null;
+		try {
+			fileReader = new FileReader("commercial.txt");
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String line = bufferedReader.readLine();
+			String[] caracts = line.split("\\|");
+			bufferedReader.close();
+			return caracts;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null; 
+	}
 	public static void main (String[] args) {
 		Entreprise e = new Entreprise(5,3);
 		
