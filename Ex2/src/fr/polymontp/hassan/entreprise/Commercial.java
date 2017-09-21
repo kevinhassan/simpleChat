@@ -30,4 +30,11 @@ public class Commercial extends Employe {
 	public String toString() {
 		return "nom : "+ this.getName()+"|"+"ca : "+ this.getCA()+"|"+"sommeFixe : "+this.sommeFixe+"|"+"salaire : "+ this.getSalaire();
 	}
+	public double[] toDouble(){
+		double[] infos = new double[3];
+		infos[0] = this.ca;
+		infos[1] = this.sommeFixe;
+		infos[2] = this.getSalaire();
+		return infos;
+	}
 }

@@ -1,12 +1,22 @@
 package entreprise;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Arrays;
+
+
+
+
+
 
 import fr.polymontp.hassan.entreprise.Commercial;
 import fr.polymontp.hassan.entreprise.Employe;
@@ -37,6 +47,23 @@ public class Entreprise {
 			e.printStackTrace();
 		}		
 	}
+	public void enregistreToiBinary(Commercial c) {
+		File file = new File("Commercial_Binary.txt");
+		
+		try {
+			file.createNewFile();
+			
+			FileOutputStream fos = new FileOutputStream(file);
+			DataOutputStream dos = new DataOutputStream(fos);
+			for(int i=0; i<c.toDouble().length; i++){
+				dos.writeDouble(c.toDouble()[i]);
+			}
+			dos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
 	public String[] lire() {
 		FileReader fileReader = null;
 		try {
@@ -46,6 +73,32 @@ public class Entreprise {
 			String[] caracts = line.split("\\|");
 			bufferedReader.close();
 			return caracts;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null; 
+	}
+	public String lireBinary() {
+		//FileReader fileReader = null;
+		try {
+			InputStream is = null;
+	      	DataInputStream dis = null;
+	      	String output = "";
+			is = new FileInputStream("commercial_binary.txt");
+			dis = new DataInputStream(is);
+			while(dis.available()>0) {
+	             // read character
+	             double c = dis.readDouble();
+	             output += Double.toString(c);
+	             // print
+	             System.out.print(c + " ");
+	          }
+			return output;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

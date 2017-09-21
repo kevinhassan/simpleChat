@@ -14,8 +14,8 @@ public class TestEntreprise {
 		
 		Commercial c1 = new Commercial("John");
 		c1.setInfoSalaire(20000, 2000);	
-		e.enregistreToi(c1);
-		String[] caracts = e.lire();
-		System.out.println(Arrays.toString(caracts));
+		e.enregistreToiBinary(c1);
+		String caracts = e.lireBinary();
+		System.out.println(caracts);
 	}
 }
