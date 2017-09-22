@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.*;
 
 
 
@@ -24,16 +24,20 @@ import fr.polymontp.hassan.entreprise.EmployeH;
 
 public class Entreprise {
 
+	private String nom;
 	private int nbCommerciauxCurrent = 0;
 	private int nbMax;
 	private int nbCommerciauxMax;
-	private Employe[] employes;
+	private ArrayList <Employe> employes;
 	
-	public Entreprise(int nbMaxEmployes, int nbCommerciauxMax){
+	public Entreprise(String nom, int nbMaxEmployes, int nbCommerciauxMax){
+		
+		this.nom = nom;
 		this.nbCommerciauxMax = nbCommerciauxMax;
 		this.nbMax = nbMaxEmployes;
-		this.employes = new Employe[nbMaxEmployes];
+		this.employes = new ArrayList <Employe>();
 	}
+	
 	public void enregistreToi(Commercial c) {
 		File file = new File("Commercial.txt");
 		try {
@@ -100,7 +104,7 @@ public class Entreprise {
 	          }
 			return output;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated ca Iterator itr = al.iterator();tch block
 			e.printStackTrace();
 		}
 		  catch (IOException e) {
@@ -110,7 +114,7 @@ public class Entreprise {
 		return null; 
 	}
 	public static void main (String[] args) {
-		Entreprise e = new Entreprise(5,3);
+		Entreprise e = new Entreprise("Roussel",5,3);
 		
 		Commercial c1 = new Commercial("John");
 		c1.setInfoSalaire(20000, 2000);		
@@ -125,10 +129,12 @@ public class Entreprise {
 		e1.setInfoSalaire(2, 100, 30); // 2h sup � 30% de plus pour 10�50 de l'heure
 		EmployeH e2 = new EmployeH("Parker", 5, 80 ,50);
 
+		e.toString();
 		try {
 			e.ajouter(c1);
 			e.ajouter(c2);
 			e.ajouter(c3);
+			e.enlever(c3);
 			e.ajouter(c4);
 			
 			e.ajouter(e1);
@@ -139,24 +145,43 @@ public class Entreprise {
 		}
 	}
 	
+	public String getNom(){
+		return this.nom;
+	}
+	
 	public void ajouter(Employe e) throws Exception{
 		if(e instanceof Commercial){
-			if( this.nbCommerciauxCurrent >= this.nbCommerciauxMax){
+			if( this.nbCommerciauxCurrent >= getNbMaxCommerciaux()){
 				throw new EntrepriseSatureDeCommerciaux(this);
 			}
 			else{
-				int i =0;
-				while (this.employes[i]!= null && i<this.nbMax){
-					i ++;
-				}
-				if(i<this.nbMax){
-					this.employes[i]=e;
-					this.nbCommerciauxCurrent = nbCommerciauxCurrent+1;
-				}
+				this.nbCommerciauxCurrent = this.nbCommerciauxCurrent + 1;
 			}
 		}
+		this.employes.add(e);
+		
+	}
+	
+	public void enlever(Employe e) {
+		boolean answer = this.employes.remove(e);
+		if (answer){
+			this.nbCommerciauxCurrent = this.nbCommerciauxCurrent -1;
+		}
+		
 	}
 	public int getNbMaxCommerciaux(){
 		return this.nbCommerciauxMax;
+	}
+	
+	public String toString() {
+		Iterator itr = this.employes.iterator();
+		String answer = "";
+		System.out.println(this.getNom());
+		while(itr.hasNext()) {
+	         Object element = itr.next();
+	         answer = answer +""+ element+ " ";
+	      }
+		System.out.println(answer);
+		return answer;
 	}
 }
