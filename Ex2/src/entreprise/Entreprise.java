@@ -13,12 +13,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.*;
 
-
-
-
-
-
 import fr.polymontp.hassan.entreprise.Commercial;
+import fr.polymontp.hassan.entreprise.CompareSalaire;
 import fr.polymontp.hassan.entreprise.Employe;
 import fr.polymontp.hassan.entreprise.EmployeH;
 
@@ -155,6 +151,13 @@ public class Entreprise {
 		System.out.println("Salaire total : "+salaire+"€");
 		Collections.sort(e.getEmployes());
 		System.out.println(e);
+		
+		Collections.sort(e.getEmployes(), new CompareSalaire(CompareSalaire.ASCENDING_ORDER));
+		System.out.println(e);
+		
+		Collections.sort(e.getEmployes(), new CompareSalaire(CompareSalaire.DESCENDING_ORDER));
+		System.out.println(e);
+		
 	}
 	
 	public String getNom(){
@@ -188,7 +191,7 @@ public class Entreprise {
 	public String toString() {
 		String answer = "Nom Entreprise : " +this.getNom()+"\n";
 		for (Employe e : this.employes){
-			answer = answer + "Employé : " + e.getName() + "\n";
+			answer = answer + "Employé : " + e.getName() + " Salaire : "+e.getSalaire()+"\n";
 		}
 		return answer;
 	}
