@@ -30,6 +30,10 @@ public class Entreprise {
 	private int nbCommerciauxMax;
 	private ArrayList <Employe> employes;
 	
+	public ArrayList<Employe> getEmployes() {
+		return employes;
+	}
+
 	public Entreprise(String nom, int nbMaxEmployes, int nbCommerciauxMax){
 		
 		this.nom = nom;
@@ -141,7 +145,15 @@ public class Entreprise {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
-		
+		System.out.println(e);
+		Iterator itr = e.iterEmployes();
+		double salaire = 0;
+		while (itr.hasNext()) {
+		      Employe element = (Employe) itr.next();
+		      salaire = salaire + element.getSalaire();
+		    }
+		System.out.println("Salaire total : "+salaire+"€");
+		Collections.sort(e.getEmployes());
 		System.out.println(e);
 	}
 	
@@ -179,6 +191,11 @@ public class Entreprise {
 			answer = answer + "Employé : " + e.getName() + "\n";
 		}
 		return answer;
+	}
+	
+	
+	public Iterator<Employe> iterEmployes(){
+		return this.employes.iterator();
 	}
 
 }
