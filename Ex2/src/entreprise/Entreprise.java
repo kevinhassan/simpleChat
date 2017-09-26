@@ -122,14 +122,12 @@ public class Entreprise {
 		c2.setInfoSalaire(20000, 1800);
 		Commercial c3 = new Commercial("Jager");
 		c3.setInfoSalaire(20000, 1600);
-		Commercial c4 = new Commercial("LOL");
+		Commercial c4 = new Commercial("Titi");
 		c4.setInfoSalaire(20000, 1800);
 		
 		EmployeH e1 = new EmployeH("Peter");
 		e1.setInfoSalaire(2, 100, 30); // 2h sup � 30% de plus pour 10�50 de l'heure
 		EmployeH e2 = new EmployeH("Parker", 5, 80 ,50);
-
-		e.toString();
 		try {
 			e.ajouter(c1);
 			e.ajouter(c2);
@@ -143,6 +141,8 @@ public class Entreprise {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
+		
+		System.out.println(e);
 	}
 	
 	public String getNom(){
@@ -174,14 +174,11 @@ public class Entreprise {
 	}
 	
 	public String toString() {
-		Iterator itr = this.employes.iterator();
-		String answer = "";
-		System.out.println(this.getNom());
-		while(itr.hasNext()) {
-	         Object element = itr.next();
-	         answer = answer +""+ element+ " ";
-	      }
-		System.out.println(answer);
+		String answer = "Nom Entreprise : " +this.getNom()+"\n";
+		for (Employe e : this.employes){
+			answer = answer + "Employé : " + e.getName() + "\n";
+		}
 		return answer;
 	}
+
 }

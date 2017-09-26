@@ -10,7 +10,7 @@ import fr.polymontp.hassan.entreprise.Commercial;
 public class TestEntreprise {
 
 	public static void main (String[] args) {
-		Entreprise e = new Entreprise(5,3);
+		Entreprise e = new Entreprise("Roussel Hassan", 5,3);
 		
 		Commercial c1 = new Commercial("John");
 		c1.setInfoSalaire(20000, 2000);	
