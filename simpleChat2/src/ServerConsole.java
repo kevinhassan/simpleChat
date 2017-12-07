@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import common.ChatIF;
+import server.EchoServer;
 
 
 
@@ -105,7 +106,6 @@ public class ServerConsole implements ChatIF{
 	    	System.out.println(e.getMessage());
 	    }
 	    ServerConsole sv= new ServerConsole(port);
-	    sv.listen();
 	    sv.accept();  //Wait for console data
 	  }
 }
