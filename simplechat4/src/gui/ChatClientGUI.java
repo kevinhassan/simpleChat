@@ -9,6 +9,14 @@ import java.io.*;
 import client.*;
 import common.*;
 
+/**
+ * This interface implements the abstract method used to display
+ * objects onto the client or server UIs.
+ *
+ * @author Kévin Hassan
+ * @author Godefroi Roussel - yoda
+ * @version Dec 2017
+ */
 public class ChatClientGUI extends JFrame implements ChatIF{
 
 	
@@ -19,9 +27,14 @@ public class ChatClientGUI extends JFrame implements ChatIF{
    	*/
 	final public static int DEFAULT_PORT = 5555;
   
-	  
+	/**
+	 * ChatClient instance 
+	 */
     ChatClient client;
 
+    /**
+     * Attributes components for the JFrame class 
+     */
     private JButton configureButton;
     private JButton sendButton;
     private JButton quitButton;
@@ -30,10 +43,21 @@ public class ChatClientGUI extends JFrame implements ChatIF{
     private JTextField messageToSend;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // récupérer la taille de l'écran
     private SpringLayout layout;
+    
+    /**
+     * ConfigureChatClientGUI instance
+     * Used to edit client's data for the connection to server 
+     */
     private ConfigureChatClientGUI configureFrame = null;
         
     //Constructors ****************************************************
-    
+    /**
+     * Constructs an instance of the chat client     
+     * @param nom window's name 
+     * @param host host of the server listenning
+     * @param port port of the server listenning
+     * @param id name of the client connected
+     */
     public ChatClientGUI(String nom,String host, int port, String id)
     {
         super(nom);
@@ -55,11 +79,17 @@ public class ChatClientGUI extends JFrame implements ChatIF{
         configureFrame = new ConfigureChatClientGUI("SimpleChat4 - Configuration", this);
     }
 
+	/**
+	 * Method overriden is used to display objects onto a UI.
+	 */
     public void display(String message)
     {
         messagesArea.append(message+"\n");
     }
-
+    
+    /**
+     * Method used to init GUI without components
+     */
     private void initGui(){
         setResizable(false);
         setSize(680,400);
@@ -68,7 +98,10 @@ public class ChatClientGUI extends JFrame implements ChatIF{
         getContentPane().setLayout(layout);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
-
+    
+    /**
+     * Method used to add components to Jframe 
+     */
     private void addComponents(){
         this.configureButton = new JButton("Configurer");
         this.quitButton = new JButton("Quitter");
@@ -87,7 +120,10 @@ public class ChatClientGUI extends JFrame implements ChatIF{
         this.scroll=new JScrollPane(messagesArea);
         getContentPane().add(scroll);
     }
-
+    
+    /**
+     *  Method to add Listeners to button & window for user interaction
+     */
     private void addListeners(){
         quitButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -144,6 +180,9 @@ public class ChatClientGUI extends JFrame implements ChatIF{
             }
         });
     }
+    /**
+     * Method to place components into the window
+     */
     private void placeComponents(){
         layout.putConstraint(SpringLayout.WEST, configureButton,
                 0,
@@ -180,23 +219,46 @@ public class ChatClientGUI extends JFrame implements ChatIF{
                 10,
                 SpringLayout.NORTH, getContentPane());
     }
+    /**
+     * 
+     * @param message
+     */
     public void sendMessage(String message){
         client.handleMessageFromClientUI(message);
     }
+    /**
+     * 
+     * @return
+     */
     public String getId() {
 		return client.getId();
     }
+    /**
+     * Get the connection host
+     * @return connection host
+     */
 	public String getHost() {
 		return client.getHost();
 	}
+	/**
+	 * Get the connection port 
+	 * @return connection port 
+	 */
 	public int getPort() {
 		return client.getPort();
 	}
-	
+	/**
+	 * Change the name of the client
+	 * @param id the new name for the client 
+	 */
 	public void setId(String id){
 		client.setId(id);
 	}
-	
+	/**
+	 * This method is responsible for the creation of the Client UI.
+	 *
+	 * @param args[0] The host to connect to. 
+	 */
     public static void main(String[] args){
         String nomApp = "Simple Chat 4";
         String host = "localhost";
