@@ -101,7 +101,7 @@ public class ChatClientGUI extends JFrame implements ChatIF{
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (option == JOptionPane.YES_OPTION) {
-                    System.out.println("quit");
+                    client.handleMessageFromClientUI("#quit");
                 }
             }
         });
