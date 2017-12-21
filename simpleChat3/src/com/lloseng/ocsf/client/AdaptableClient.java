@@ -34,6 +34,7 @@ class AdaptableClient extends AbstractClient
    *
    * @param  host  the server's host name.
    * @param  port  the port number.
+   * @param client the client observed
    */
   public AdaptableClient(String host, int port, ObservableClient client)
   {

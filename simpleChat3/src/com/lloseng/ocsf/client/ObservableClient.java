@@ -41,6 +41,11 @@ public class ObservableClient extends Observable
 
   //Constructor *****************************************************
 
+  /**
+   * Constructs an instance of the Observable client.
+   * @param host The server to connect to.
+   * @param port The port number to connect on.
+   */
   public ObservableClient(String host, int port)
   {
     service = new AdaptableClient(host, port, this);
