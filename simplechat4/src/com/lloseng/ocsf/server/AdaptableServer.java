@@ -32,8 +32,8 @@ class AdaptableServer extends AbstractServer
   /**
    * Constructs the server adapter.
    *
-   * @param  host  the server's host name.
    * @param  port  the port number.
+   * @param  server  the server observed
    */
   public AdaptableServer(int port, ObservableServer server)
   {
