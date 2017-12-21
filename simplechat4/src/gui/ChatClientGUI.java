@@ -3,8 +3,14 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import client.*;
+import common.*;
 
-public class ChatClientGUI extends JFrame{
+public class ChatClientGUI extends JFrame implements ChatIF{
+
+    ChatClient client;
+
     private JButton configureButton;
     private JButton sendButton;
     private JButton quitButton;
@@ -15,7 +21,7 @@ public class ChatClientGUI extends JFrame{
     private SpringLayout layout;
     private ConfigureChatClientGUI configureFrame = null;
 
-    public ChatClientGUI(String nom)
+    public ChatClientGUI(String nom, host, port, id)
     {
         super(nom);
         initGui();
@@ -23,6 +29,21 @@ public class ChatClientGUI extends JFrame{
         placeComponents();
         addListeners();
         setVisible(true);
+        try
+        {
+            client= new ChatClient(host, port,id,this);
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Error: Can't setup connection!"
+                    + " Terminating client.");
+            System.exit(1);
+        }
+    }
+
+    public void display(String message)
+    {
+        messagesArea.append(message+"\n");
     }
 
     private void initGui(){
@@ -147,13 +168,16 @@ public class ChatClientGUI extends JFrame{
         String messageValueField = messageToSend.getText();
         // effacer le texte
         messageToSend.setText("");
-        messagesArea.append(messageValueField+"\n");
-        System.out.println(messageValueField);
+        display(messageValueField);
+        client.handleMessageFromClientUI(messageValueField);
     }
 
     public static void main(String[] args){
         String nomApp = "Simple Chat 4";
-        JFrame c = new ChatClientGUI(nomApp);
+        String host = "localhost";
+        String port = "5555";
+        String id = "Anonymous"
 
+        JFrame c = new ChatClientGUI(nomApp, host, port, id);
     }
 }
