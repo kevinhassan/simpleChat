@@ -39,14 +39,14 @@ public class ServerConsole implements ChatIF{
 	  
 	  //Instance methods ************************************************
 	  
-	  public void listen(){
+	  /*public void listen(){
 		  try {
 			server.listen();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	  }
+	  }*/
 	  
 	  /**
 	   * This method waits for input from the console.  Once it is 
