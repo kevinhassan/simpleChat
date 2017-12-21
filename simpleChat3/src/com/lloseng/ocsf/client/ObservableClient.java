@@ -54,7 +54,8 @@ public class ObservableClient extends Observable
   //Instance methods ************************************************
 
   /**
-   * Opens the connections with the server.
+   * Opens the connections with the server
+   * @throws IOException
    */
   final public void openConnection() throws IOException
   {
@@ -63,6 +64,7 @@ public class ObservableClient extends Observable
 
   /**
    * Closes the connection to the server.
+   * @throws IOException
    */
   final public void closeConnection() throws IOException
   {
@@ -74,6 +76,7 @@ public class ObservableClient extends Observable
    * methods should communicate with the server.
    *
    *  @param msg   The message to be sent.
+   *  @throws IOException
    */
   final public void sendToServer(Object msg) throws IOException
   {
@@ -84,6 +87,7 @@ public class ObservableClient extends Observable
 
   /**
    * Used to find out if the client is connnected.
+   * @return true if connected
    */
   final public boolean isConnected()
   {

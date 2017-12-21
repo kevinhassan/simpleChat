@@ -53,7 +53,6 @@ import java.util.*;
 *
 * @author Dr. Robert Lagani&egrave;re
 * @author Dr. Timothy C. Lethbridge
-* @author Fran&ccedil;ois  B&eacutel;langer
 * @author Paul Holden
 * @version December 2003 (2.31)
 */

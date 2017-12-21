@@ -146,7 +146,6 @@ public class ChatClientGUI extends JFrame implements ChatIF{
             }
         });
         messageToSend.addKeyListener(new KeyAdapter() {
-            @Override
             public void keyPressed(KeyEvent keyEvent) {
                 int key = keyEvent.getKeyCode();
                 if(key == 10 && !messageToSend.getText().trim().equals("")){
@@ -220,15 +219,15 @@ public class ChatClientGUI extends JFrame implements ChatIF{
                 SpringLayout.NORTH, getContentPane());
     }
     /**
-     * 
-     * @param message
+     * Send message to Server
+     * @param message message to send
      */
     public void sendMessage(String message){
         client.handleMessageFromClientUI(message);
     }
     /**
-     * 
-     * @return
+     * Get client name 
+     * @return name 
      */
     public String getId() {
 		return client.getId();

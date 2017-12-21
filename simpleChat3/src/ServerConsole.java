@@ -28,7 +28,6 @@ public class ServerConsole implements ChatIF{
 	  /**
 	   * Constructs an instance of the ClientConsole UI.
 	   *
-	   * @param host The host to connect to.
 	   * @param port The port to connect on.
 	   */
 	  public ServerConsole(int port) 
