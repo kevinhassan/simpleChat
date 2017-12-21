@@ -9,6 +9,15 @@ import common.*;
 
 public class ChatClientGUI extends JFrame implements ChatIF{
 
+	
+	//Class variables *************************************************
+	
+	/**
+   	* The default port to connect on.
+   	*/
+	final public static int DEFAULT_PORT = 5555;
+  
+	  
     ChatClient client;
 
     private JButton configureButton;
@@ -21,7 +30,15 @@ public class ChatClientGUI extends JFrame implements ChatIF{
     private SpringLayout layout;
     private ConfigureChatClientGUI configureFrame = null;
 
-    public ChatClientGUI(String nom, host, port, id)
+    //Constructors ****************************************************
+    
+    /**
+     * Constructs an instance of the ClientConsole UI.
+     *
+     * @param host The host to connect to.
+     * @param port The port to connect on.
+     */
+    public ChatClientGUI(String nom, String host, int port, String id)
     {
         super(nom);
         initGui();
@@ -175,8 +192,8 @@ public class ChatClientGUI extends JFrame implements ChatIF{
     public static void main(String[] args){
         String nomApp = "Simple Chat 4";
         String host = "localhost";
-        String port = "5555";
-        String id = "Anonymous"
+        int port = DEFAULT_PORT;  //The port number
+        String id = "Anonymous";
 
         JFrame c = new ChatClientGUI(nomApp, host, port, id);
     }
