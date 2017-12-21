@@ -14,17 +14,17 @@ public class ConfigureChatClientGUI extends JFrame{
     private JButton loginButton;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // récupérer la taille de l'écran
     private SpringLayout layout;
-    private String host = "localhost";
-    private String port = "5555";
-    private String name = "Client";
+    
+    private ChatClientGUI parent;
 
-    public ConfigureChatClientGUI(String nom) {
+    public ConfigureChatClientGUI(String nom, ChatClientGUI parent) {
         super(nom);
+        this.parent = parent;
         initGui();
         addComponents();
         addListeners();
         placeComponents();
-        setVisible(true);
+        setVisible(false);
     }
 
     private void initGui(){
@@ -34,7 +34,7 @@ public class ConfigureChatClientGUI extends JFrame{
         setResizable(false);
         this.layout = new SpringLayout();
         getContentPane().setLayout(layout);
-            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
     private void addComponents(){
         this.hostField = new JTextField(15);
@@ -52,9 +52,9 @@ public class ConfigureChatClientGUI extends JFrame{
         getContentPane().add(nameField);
         getContentPane().add(nameLabel);
 
-        hostField.setText(host);
-        portField.setText(port);
-        nameField.setText(name);
+        hostField.setText(parent.getHost());
+        portField.setText(Integer.toString(parent.getPort()));
+        nameField.setText(parent.getId());
 
         loginButton.setPreferredSize(new Dimension(getWidth(), 25));
         getContentPane().add(loginButton);
@@ -66,14 +66,14 @@ public class ConfigureChatClientGUI extends JFrame{
                 String hostValueField = hostField.getText();
                 String portValueField = portField.getText();
                 String nameValueField = nameField.getText();
-                System.out.println("Connexion");
-                System.out.println(hostValueField);
-                System.out.println(portValueField);
-                System.out.println(nameValueField);
+                hostField.setText(parent.getHost());
+                portField.setText(Integer.toString(parent.getPort()));
+                nameField.setText(parent.getId());
                 if(!(hostValueField.equals("") || portValueField.equals("") || nameValueField.equals(""))){
-                    host = hostValueField;
-                    port = portValueField;
-                    name = nameValueField;
+                	parent.sendMessage("#sethost "+ hostValueField);
+                	parent.sendMessage("#setport "+ portValueField);
+                	parent.sendMessage("#login "+ nameValueField);
+                	parent.setId(nameValueField);
                     setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(null,
@@ -131,17 +131,5 @@ public class ConfigureChatClientGUI extends JFrame{
         layout.putConstraint(SpringLayout.SOUTH, loginButton,
                 loginButton.getHeight(),
                 SpringLayout.SOUTH, getContentPane());
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public String getName() {
-        return name;
     }
 }

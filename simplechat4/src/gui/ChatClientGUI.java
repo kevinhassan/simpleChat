@@ -1,9 +1,11 @@
 package gui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+
 import client.*;
 import common.*;
 
@@ -29,16 +31,10 @@ public class ChatClientGUI extends JFrame implements ChatIF{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // récupérer la taille de l'écran
     private SpringLayout layout;
     private ConfigureChatClientGUI configureFrame = null;
-
+        
     //Constructors ****************************************************
     
-    /**
-     * Constructs an instance of the ClientConsole UI.
-     *
-     * @param host The host to connect to.
-     * @param port The port to connect on.
-     */
-    public ChatClientGUI(String nom, String host, int port, String id)
+    public ChatClientGUI(String nom,String host, int port, String id)
     {
         super(nom);
         initGui();
@@ -56,6 +52,7 @@ public class ChatClientGUI extends JFrame implements ChatIF{
                     + " Terminating client.");
             System.exit(1);
         }
+        configureFrame = new ConfigureChatClientGUI("SimpleChat4 - Configuration", this);
     }
 
     public void display(String message)
@@ -65,7 +62,7 @@ public class ChatClientGUI extends JFrame implements ChatIF{
 
     private void initGui(){
         setResizable(false);
-        setSize((int)(screenSize.getWidth()/2),(int)(screenSize.getHeight()/2));
+        setSize(680,400);
         setLocation(screenSize.width/2-this.getSize().width/2, screenSize.height/2-this.getSize().height/2); // mettre au centre de l'écran
         this.layout = new SpringLayout();
         getContentPane().setLayout(layout);
@@ -84,7 +81,7 @@ public class ChatClientGUI extends JFrame implements ChatIF{
         getContentPane().add(sendButton);
         this.messageToSend = new JTextField(48);
         getContentPane().add(messageToSend);
-        this.messagesArea = new JTextArea(19,55);
+        this.messagesArea = new JTextArea(19,57);
         messagesArea.setEditable(false);
         messagesArea.setLineWrap(true);
         this.scroll=new JScrollPane(messagesArea);
@@ -107,9 +104,7 @@ public class ChatClientGUI extends JFrame implements ChatIF{
         });
         configureButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(configureFrame == null){
-                    configureFrame = new ConfigureChatClientGUI("SimpleChat4 - Configuration");
-                }else{
+                if(configureFrame != null){
                     configureFrame.setVisible(true);
                 }
             }
@@ -119,7 +114,9 @@ public class ChatClientGUI extends JFrame implements ChatIF{
             public void keyPressed(KeyEvent keyEvent) {
                 int key = keyEvent.getKeyCode();
                 if(key == 10 && !messageToSend.getText().trim().equals("")){
-                    sendMessage();
+                    String messageValueField = messageToSend.getText();
+                    sendMessage(messageValueField);
+                    messageToSend.setText("");
                 }
             }
         });
@@ -133,14 +130,16 @@ public class ChatClientGUI extends JFrame implements ChatIF{
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (option == JOptionPane.YES_OPTION) {
-                    System.out.println("quit");
+                    client.handleMessageFromClientUI("#quit");
                 }
             }
         });
         sendButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(!messageToSend.getText().trim().equals("")){
-                    sendMessage();
+                	String messageValueField = messageToSend.getText();
+                    sendMessage(messageValueField);
+                    messageToSend.setText("");
                 }
             }
         });
@@ -175,26 +174,35 @@ public class ChatClientGUI extends JFrame implements ChatIF{
                 SpringLayout.SOUTH, getContentPane());
 
         layout.putConstraint(SpringLayout.WEST, messagesArea,
-                10,
+                0,
                 SpringLayout.WEST, getContentPane());
         layout.putConstraint(SpringLayout.NORTH, messagesArea,
                 10,
                 SpringLayout.NORTH, getContentPane());
     }
-    private void sendMessage(){
-        String messageValueField = messageToSend.getText();
-        // effacer le texte
-        messageToSend.setText("");
-        display(messageValueField);
-        client.handleMessageFromClientUI(messageValueField);
+    public void sendMessage(String message){
+        client.handleMessageFromClientUI(message);
     }
-
+    public String getId() {
+		return client.getId();
+    }
+	public String getHost() {
+		return client.getHost();
+	}
+	public int getPort() {
+		return client.getPort();
+	}
+	
+	public void setId(String id){
+		client.setId(id);
+	}
+	
     public static void main(String[] args){
         String nomApp = "Simple Chat 4";
         String host = "localhost";
-        int port = DEFAULT_PORT;  //The port number
+        int port = 5555;
         String id = "Anonymous";
 
-        JFrame c = new ChatClientGUI(nomApp, host, port, id);
+        JFrame c = new ChatClientGUI(nomApp,host,port,id);
     }
 }
